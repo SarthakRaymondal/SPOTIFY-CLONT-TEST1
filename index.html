@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify clone</title>
+    <link rel="icon" type="images/jpeg" href="cover1.webp">
+    <style>
+        body {
+            background: url(bg1.gif);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+        }
+        .font1 {
+              font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+        }
+        .bottom-place {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 0;
+        }
+        .first {
+            width: 100%;
+            background: linear-gradient(to bottom,rgba(255,255,255,0),rgba(0,0,0,0.6) 55%);
+            border: none;
+        }
+        .slider {
+        appearance: none;
+  width: 98%;
+  height: 2px;
+  background: #575454;
+  outline: none;
+  opacity: 0.9;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  margin-left: 2px;
+  margin-bottom: 15px;
+  transition: 0.5s;
+}
+
+
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius:15px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius:15px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #ffffff;
+  cursor: pointer;
+}
+.second {
+    background: linear-gradient(to bottom,rgba(0,0,0,0.6) ,black 96% );
+    width: 100%;
+    max-height: 200px;
+    transition: 0s;
+    overflow: hidden; /* Important: Hides content beyond the current height */
+    transition: max-height 0.5s ease-in-out;
+
+}
+.bf {
+    background: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+}
+.disabled {
+    opacity: 0.3;
+}
+.black-layer1 {
+    position: fixed;
+    z-index: -2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+}
+.black-layer2 {
+    position: fixed;
+    z-index: 2;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+.si {
+    position: fixed;
+    z-index: -3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url(cover1.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: 0.5s;
+}
+.dev-pan1 {
+    width: 80%;
+    height: 200px;
+    position: fixed;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(15px);
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    display: none;
+}
+    </style>
+</head>
+<body class="font1" onload="ut1();ust1();pc1();" id="body">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<audio id="audio1">
+  <source src="Heartless.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+    <div class="si" id="si1"></div>
+    <div style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;background: linear-gradient(to bottom,black,rgba(255,255,255,0));">
+        <div style="width: 100%;display: flex;align-items: center;justify-content: center;">
+            <p style="color: white;margin-top: 0;margin-bottom: 0;text-align: center;"><br><span style="font-size: 10px;">PLAYING FROM ALBUM</span><br><span style="font-size: 15px;" >After Hours</span><br></p>
+        </div>
+
+    </div>
+    <div class="dev-pan1">
+        <br><a style="color: white;margin-left: 5px;">After hours mode: </a><button class="bt1" onclick="ahm1()" id="dbt1">Off</button>
+        <br><a style="color: white;margin-left: 5px;">Sped up: </a><button class="bt1" onclick="su1()" id="dbt2">Off</button>
+                <br><a style="color: white;margin-left: 5px;">Background: </a><button class="bt1" onclick="bgd()" id="dbt3">Change</button>
+    </div>
+    <div class="black-layer1" onclick="toggle1()" id="bl1">
+    <div class="black-layer2"  id="bl2"></div>
+    </div>
+    <button class="bf" style="position: fixed;right: 10px;top: 30px;"><img src="more.svg"></button>
+    <div class="bottom-place">
+        <div class="first">
+            <div style="width: 100%;display: flex;align-items: center;">
+                <div style="display: flex;margin-left: 5px;overflow: hidden;">
+                <img src="cover2.gif" height="50" style="border-radius: 6px;">
+                <a style="color: white;margin-left: 5px;">Heartless<br><span style="display: flex;align-items: center;"><img src="explicit.svg" height="20"><span style="font-size: 10px;margin-left: 5px;">The Weeknd</span></span></a>
+                </div>
+                <button class="bf disabled" style="margin-left: auto;margin-right: 0px;"><img src="add_circle_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" height="40"></button>
+            </div>
+              <div style="width: 100%;display: flex;justify-content: center;align-items: center;margin-bottom: 0px;margin-top: 5px;margin-top: 15px;"><input type="range" min="0" max="100" value="1" class="slider" id="slider1" oninput="ut3()"></div>
+        </div>
+        <div class="second" id="bp1">
+                          <div style="margin-left: 5px;display: flex;justify-content: space-between;"><a style="color: white;font-size: 10px;" id="st1">0:00</a><a style="color: white;font-size: 10px;margin-right: 5px;">3:18</a></div>
+     
+                          <div style="width: 100%;display: flex;justify-content: space-between;">
+                            <button class="bf disabled" style="margin-left: 5px;"><img src="shuffle.svg"></button>
+                            <div style="display: flex;"><button class="bf"><img src="back.svg" height="30" onclick="reset1()"></button><button class="bf" onclick="pp1()"><img src="play.svg" height="50" id="pi1"></button><button class="bf" onclick="reset1()"><img src="right.svg" height="30"></button></div>
+                            <button class="bf" style="margin-right: 5px;" onclick="urs1()"><img src="repeat.svg" id="rs1"></button>
+                          </div><br>
+                          <div style="width: 100%;display: flex;justify-content: space-between;">
+                            <div style="display: flex;align-items: center;margin-left: 5px;cursor: pointer;"><img src="mobile1.svg" height="20"><a style="color: #48752C;font-size: 10px;margin-left: 5px;">This device</a></div>
+                            <div style="display: flex;align-items: center;"><button class="bf"><img src="info1.svg" height="20"></button><button class="bf" onclick="share1();"><img src="share1.svg" height="20"></button><button class="bf disabled"><img src="qm1.svg" height="20"></button></div>
+                          </div>
+                <br>
+        </div>
+    </div>
+<script>
+    var sum1 = false;
+    var ahmoo = false;
+    var track_name = "Heartless"
+    var track_artist = "The Weeknd"
+    var sbp = true
+    var playing1 = false;
+    var rs = 0;
+    const a = new Audio()
+    
+    usi1();
+    function bgd() {
+        var a = prompt("What is bg to be set: ")
+        if(a === "1") {
+            document.getElementsByTagName("body")[0].background = "url(cover2.gif)"
+                document.getElementsByTagName("body")[0].style.backgroundRepeat = "no-repeat";
+                document.getElementsByTagName("body")[0].style.backgroundPosition = "center";
+                document.getElementsByTagName("body")[0].style.backgroundSize = "cover";
+                document.getElementsByTagName("body")[0].style.backgroundAttachment = "fixed";
+        }
+        else if(a === "2") {}
+        else {}
+    }
+    function ahm1() {
+        if(ahmoo === false) {
+            ahmoo = true
+            document.getElementById("dbt1").innerHTML = "On"
+            document.getElementById("bl1").style.background = "rgba(89, 37, 37, 0.5)"
+        }
+        else {
+            ahmoo = false
+            document.getElementById("dbt1").innerHTML = "Off"
+                        document.getElementById("bl1").style.background = "rgba(0, 0, 0, 0.3)"
+        }
+    }
+    function su1() {
+        if(sum1 === false) {
+            sum1 = true
+            document.getElementById("dbt2").innerHTML = "On"
+            document.getElementById("audio1").playbackRate = 1.5
+            
+        }
+        else {
+            sum1 = false
+            document.getElementById("dbt2").innerHTML = "Off"
+            document.getElementById("audio1").playbackRate = 1
+        }
+    }
+    function usi1() {
+        setTimeout(proto1,500);
+        function proto1() {
+                document.getElementById("si1").style.background = "url(cover2.gif)";
+                document.getElementById("si1").style.backgroundRepeat = "no-repeat";
+                document.getElementById("si1").style.backgroundPosition = "center";
+                document.getElementById("si1").style.backgroundSize = "cover";
+                document.getElementById("si1").style.backgroundAttachment = "fixed";
+                setTimeout(proto2,500)
+        }
+        function proto2() {
+            document.getElementById("si1").style.opacity = 0
+        }
+    }
+function pc1() {
+    const audio = document.getElementById("audio1");
+    const icon = document.getElementById("pi1");
+
+    if (!audio.paused && !audio.ended) { //! means not
+        icon.src = "pause.svg";
+    } else {
+        icon.src = "play.svg";
+    }
+
+    setTimeout(pc1, 50); 
+}
+
+    function ut1() {
+            document.getElementById("slider1").max = document.getElementById("audio1").duration
+            ut2();
+    }
+    function ut2() {
+        document.getElementById("slider1").value = document.getElementById("audio1").currentTime;
+        setTimeout(ut2,100)
+    }
+    function ut3() {
+        document.getElementById("audio1").currentTime = document.getElementById("slider1").value;
+    }
+    function ust1() {
+        //201.270567
+        var a = parseInt(document.getElementById("audio1").currentTime);
+        var b = parseInt(a/60);
+        var c = 60 * b;
+        var minute = b;
+        var d = a-c;
+        if(d < 10) {
+            second = "0" + d;
+        }
+        else {
+            second = d
+        }
+        document.getElementById("st1").innerHTML = minute + ":" + second
+setTimeout(ust1, 50);
+
+    }
+    function reset1() {
+        document.getElementById("audio1").currentTime = 0
+    }
+    function toggle1() {
+        if(sbp === true) {
+            sbp = false
+            document.getElementById("bl1").style.opacity = 0
+            document.getElementById("bp1").style.maxHeight = "0";
+            document.getElementById("slider1").style.marginBottom = "30px";
+        }
+        else {
+            sbp = true
+                        document.getElementById("bl1").style.opacity = 1
+            document.getElementById("bp1").style.maxHeight = "200px";
+                        document.getElementById("slider1").style.marginBottom = "15px";
+
+        }
+    }
+    function pp1() {
+        if(playing1 === false) {
+            playing1 = true
+            document.getElementById("pi1").src = "pause.svg"
+            document.getElementById("audio1").play()
+        }
+        else {
+            playing1 = false
+            document.getElementById("pi1").src = "play.svg"
+            document.getElementById("audio1").pause()
+        }
+    }
+    function urs1() {
+        if(rs === 0) {
+            rs = 1
+            document.getElementById("audio1").loop = true;
+            document.getElementById("rs1").src = "repeatthis.svg"
+        }
+        else if(rs === 1) {
+            rs = 2
+            document.getElementById("audio1").loop = true;
+            document.getElementById("rs1").src = "repeatone.svg"
+        }
+        else {
+            rs = 0
+            document.getElementById("audio1").loop = false;
+            document.getElementById("rs1").src = "repeat.svg"
+        }
+    }
+</script>
+</body>
+</html>
